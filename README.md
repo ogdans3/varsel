@@ -1,1 +1,36 @@
-#Varsel is a javascript library for adding notifications to the browser
+#Varsel
+
+###Varsel is a javascript library for adding notifications to the browser
+
+####Varsel in action
+![](https://github.com/ogdans3/varsel/blob/master/videos/demo.gif)
+
+[Demo](http://www.varsel.freelunch.no)
+
+
+####Examples
+If nothing is specified then the notification will dismiss itself after two seconds.
+
+```javascript
+varsel("Good job!");
+```
+Shows a simple success notification to the user.
+
+```javascript
+varsel({text: "I have a sectret to tell you!", type: "info"});
+varsel({text: "Trump is president!", type: "warning"});
+varsel({text: "Cannot compute", type: "error"});
+```
+Shows three notifications, each a different type.
+
+```javascript
+varsel({timeout: -1, text: "No timeout!"});
+```
+Shows a notification will *not* dismiss itself.
+
+```javascript
+varsel(["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]);
+varsel({text: ["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]});
+```
+Shows a message with multiple input lines. Both methods accomplish the same task, and the output is the same.
+
