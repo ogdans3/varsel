@@ -2,11 +2,13 @@
 
 ###Varsel is a javascript library for adding notifications to the browser
 
+This library has taken great inspiration from the notifications in the Atom editor. 
+[Atom notifications repo](https://github.com/atom/notifications)
+
+[Demo](http://varsel.freelunch.no)
+
 ####Varsel in action
 ![](https://github.com/ogdans3/varsel/blob/master/videos/demo.gif)
-
-[Demo](http://www.varsel.freelunch.no)
-
 
 ####Examples
 If nothing is specified then the notification will dismiss itself after two seconds.
