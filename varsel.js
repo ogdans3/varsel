@@ -59,24 +59,10 @@ varsel.prototype = {
         
         var createContainer = function(type){
             var container = document.createElement("div");
-            container.className = "varsel-container";
-            switch(type){
-                case "success":
-                    container.className = container.className + " varsel-type-success";
-                    break;
-            }
+            container.className = "varsel-container " + "varsel-type-" + type;
             return container;
         };
-        
-        var createCloseButton = function(){
-            var closeButton = document.createElement("div");
-            closeButton.className = "varsel-close-button";
-            closeButton.addEventListener("click", function(){
-                self.hide();
-            })
-            return closeButton;
-        }
-        
+                
         var createIcon = function(){
             var icon = document.createElement("div");
             icon.className = "varsel-icon";
@@ -97,6 +83,16 @@ varsel.prototype = {
             return body;
         }
         
+        var createCloseButton = function(){
+            var closeButton = document.createElement("div");
+            closeButton.className = "varsel-close-button";
+            closeButton.addEventListener("click", function(){
+                self.hide();
+            })
+            return closeButton;
+        }
+
+        
         var createMainContainer = function(){
             var container = document.createElement("div");
             container.className = "varsel-main varsel-container";
@@ -113,7 +109,7 @@ varsel.prototype = {
             mainContainer.appendChild(element);
         }
         
-        var container = createContainer("success");
+        var container = createContainer(self.type);
         var closeButton = createCloseButton();
         var icon = createIcon();
         var body = createBody(this.text);

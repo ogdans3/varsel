@@ -1,3 +1,4 @@
+/* The container styles */
 .varsel-container{
     display: flex;
 
@@ -12,6 +13,8 @@
     opacity: 1;
 }
 
+
+/* The global container styles, the container that contains all the notifications */
 .varsel-main{
     display: block;
     width: 400px;
@@ -20,19 +23,8 @@
     right: 10px;
 }
 
-.varsel-icon, .varsel-body{
-}
 
-.varsel-body{
-    width: 100%;
-    line-height: 100%;
-    padding-left: 20px;
-}
-
-.varsel-body-line{
-    line-height: 50px;
-}
-
+/* Icon styles */
 .varsel-icon{
     width: 30px;
     line-height: 50px;
@@ -51,20 +43,21 @@
     color: #FFF0F5;
 }
 
-.varsel-type-success .varsel-icon:before{
-    content: "\2713";
-}
-.varsel-type-success .varsel-icon{
-    background-color: #2DAD57;
-}
-.varsel-type-success{
-    background-color: #57CD7E;
+
+/* Body styles*/
+.varsel-body{
+    width: 100%;
+    line-height: 100%;
+    padding-left: 20px;
 }
 
-.varsel-destroy-animation{
-    -webkit-animation: varsel-destroy-animation .12s;
+.varsel-body-line{
+    padding-top: 10px;
+    line-height: 30px;
 }
 
+
+/* Close-button styles */
 .varsel-close-button{
     position: relative;
     top: 2px;
@@ -80,6 +73,59 @@
 }
 .varsel-close-button:before{
     content: "\00d7";
+}
+
+
+/* All notiication types */
+
+/* Sucess */
+.varsel-type-success .varsel-icon{
+    background-color: #2DAD57;
+}
+.varsel-type-success{
+    background-color: #57CD7E;
+}
+.varsel-type-success .varsel-icon:before{
+    content: "\2713";
+}
+
+/* Info */
+.varsel-type-info .varsel-icon{
+    background-color: #2DAD57;
+}
+.varsel-type-info{
+    background-color: #57CD7E;
+}
+.varsel-type-info .varsel-icon:before{
+    content: "\2713";
+}
+
+/* Warning */
+.varsel-type-warning .varsel-icon{
+    background-color: #FFA71A;
+}
+.varsel-type-warning{
+    background-color: #FEC56A;
+}
+.varsel-type-warning .varsel-icon:before{
+    content: "\26A0";
+}
+
+/* Error */
+.varsel-type-error .varsel-icon{
+    background-color: #ff130c;
+}
+.varsel-type-error{
+    background-color: #F85E59;
+}
+.varsel-type-error .varsel-icon:before{
+    content: "\1F525";
+}
+
+
+/* Key frames and animation classes */
+.varsel-destroy-animation{
+    -webkit-animation: varsel-destroy-animation .12s;
 }
 
 @-webkit-keyframes varsel-destroy-animation {

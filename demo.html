@@ -8,9 +8,13 @@
     <script>
         varsel("Hello");
         setTimeout(function(){
-            varsel(["This is a title", "This is the explanation"]);            
+            varsel(["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]);
         }, 500);
-        varsel({timeout: -1, title: "Hello", text: ["No timeout", "Yay"], type: "warning"});
+        varsel({timeout: -1, title: "Hello", text: ["No timeout", "Yay"], type: "success"});
+        varsel({timeout: -1, title: "Hello", text: ["Info", "Got it"], type: "info"});
+        varsel({timeout: -1, title: "Hello", text: ["Warning", "Scary"], type: "warning"});
+        varsel({timeout: -1, title: "Hello", text: ["Error", "Oh no"], type: "error"});
+        varsel({text: ["This is a super long text so that we can test the notifications ability to wrap the text onto the next line. It would be nice if this worked on the first try, but i doubt it", "This is a small text"], timeout: -1});
     </script>
 
 </body>
