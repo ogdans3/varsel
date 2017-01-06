@@ -39,11 +39,9 @@ varsel.prototype = {
     container: null,
     
     hide: function () {
-        console.log("Hide function called");
         var element = this.container;
         if(element){
             var destroy = function(event){
-                console.log("Transition complete");
                 //Remove the element from the DOM after the destroy animation has played
                 event.target.parentNode.removeChild(event.target);
             };
@@ -81,7 +79,6 @@ varsel.prototype = {
             body.className = "varsel-body";
             for(var i = 0; i < texts.length; i++){
                 var text = texts[i];
-                console.log("Text", text)
                 var line = document.createElement("div");
                 line.className = "varsel-body-line";
                 line.innerHTML = text;
@@ -127,7 +124,6 @@ varsel.prototype = {
         append(container);
         
         if(this.timeout != null && this.timeout != undefined && this.timeout > -1){
-            console.log("Timeout", this.timeout)
             setTimeout(function(){
                 self.hide();
             }, this.timeout * 1000);            
