@@ -26,7 +26,7 @@ Shows three notifications, each a different type.
 ```javascript
 varsel({timeout: -1, text: "No timeout!"});
 ```
-Shows a notification will *not* dismiss itself.
+Shows a notification which will *not* dismiss itself.
 
 ```javascript
 varsel(["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]);
