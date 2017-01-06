@@ -92,13 +92,13 @@
 
 /* Info */
 .varsel-type-info .varsel-icon{
-    background-color: #2DAD57;
+    background-color: #29e;
 }
 .varsel-type-info{
-    background-color: #57CD7E;
+    background-color: #70B8F4;
 }
 .varsel-type-info .varsel-icon:before{
-    content: "\2713";
+    content: "\2139";
 }
 
 /* Warning */
