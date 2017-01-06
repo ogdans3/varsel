@@ -9,7 +9,6 @@
     max-height: 1000px;
     
     overflow: hidden;
-    clear: both;
     opacity: 1;
 }
 
@@ -28,7 +27,6 @@
 .varsel-icon{
     width: 30px;
     line-height: 50px;
-    float: left;
 }
 
 .varsel-icon:before{
@@ -46,14 +44,17 @@
 
 /* Body styles*/
 .varsel-body{
-    width: 100%;
     line-height: 100%;
     padding-left: 20px;
+    flex: 1 1 0;
+    min-width: 0px;
 }
 
 .varsel-body-line{
     padding-top: 10px;
     line-height: 30px;
+    width: 100%;
+    overflow-wrap: break-word;
 }
 
 
@@ -127,8 +128,16 @@
 .varsel-destroy-animation{
     -webkit-animation: varsel-destroy-animation .12s;
 }
+.varsel-create-animation{
+    -webkit-animation: varsel-create-animation .12s;
+}
 
+
+@-webkit-keyframes varsel-create-animation {
+    0% { opacity: 0; transform: scale(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
 @-webkit-keyframes varsel-destroy-animation {
-    0% { opacity: 1; transform: scale( 1); }
-  100% { opacity: 0; transform: scale(.8); }
+    0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.5); }
 }

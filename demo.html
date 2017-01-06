@@ -4,17 +4,48 @@
         <script src="varsel.js"></script>
     </head>
 <body>
+    
+    <style>
+        button{
+            display: block;
+        }
+    </style>
+    
+    <div>
+        <button onclick = "default_success()">Default sucess message</button>
+        <button onclick = "default_info()">Default info message</button>
+        <button onclick = "default_warning()">Default warning message</button>
+        <button onclick = "default_error()">Default error message</button>
+
+        <button onclick = "noTimeout()">Notification with no timeout</button>
+        <button onclick = "long()">Long notification</button>
+        <button onclick = "manyLines()">Notification with many lines</button>
+    </div>
 
     <script>
-        varsel("Hello");
-        setTimeout(function(){
+        function default_success(){
+            varsel("Good job!");
+        }
+        function default_info(){
+            varsel({text: "I have a sectret to tell you!", type: "info"});
+        }
+        function default_warning(){
+            varsel({text: "Trump is president!", type: "warning"});
+        }
+        function default_error(){
+            varsel({text: "Cannot compute", type: "error"});
+        }
+
+        function noTimeout(){
+            varsel({timeout: -1, text: "No timeout!"});
+        }
+        function long(){
+            varsel({text: "This is a super long text so that we can test the notifications ability to wrap the text onto the next line. It would be nice if this worked on the first try, but i doubt it"});
+            varsel({text: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"});
+        }
+        function manyLines(){
             varsel(["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]);
-        }, 500);
-        varsel({timeout: -1, title: "Hello", text: ["No timeout", "Yay"], type: "success"});
-        varsel({timeout: -1, title: "Hello", text: ["Info", "Got it"], type: "info"});
-        varsel({timeout: -1, title: "Hello", text: ["Warning", "Scary"], type: "warning"});
-        varsel({timeout: -1, title: "Hello", text: ["Error", "Oh no"], type: "error"});
-        varsel({text: ["This is a super long text so that we can test the notifications ability to wrap the text onto the next line. It would be nice if this worked on the first try, but i doubt it", "This is a small text"], timeout: -1});
+        }
     </script>
 
 </body>

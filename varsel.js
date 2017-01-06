@@ -28,6 +28,7 @@ function varsel(obj){
     this.texts = texts;
     this.type = type;
     this.timeout = timeout;
+    this.title = title;
 
     this.create();
 
@@ -40,7 +41,6 @@ varsel.prototype = {
     hide: function () {
         console.log("Hide function called");
         var element = this.container;
-        console.log(this);
         if(element){
             var destroy = function(event){
                 console.log("Transition complete");
@@ -60,6 +60,13 @@ varsel.prototype = {
         var createContainer = function(type){
             var container = document.createElement("div");
             container.className = "varsel-container " + "varsel-type-" + type;
+            var tempClassName = container.className;
+
+            container.className = container.className + " varsel-create-animation";
+            container.addEventListener("animationend", function(){
+                container.className = tempClassName;
+            }, false);
+
             return container;
         };
                 
