@@ -108,7 +108,7 @@
     background-color: #FEC56A;
 }
 .varsel-type-warning .varsel-icon:before{
-    content: "\26A0";
+    content: "\0021";
 }
 
 /* Error */
@@ -119,7 +119,7 @@
     background-color: #F85E59;
 }
 .varsel-type-error .varsel-icon:before{
-    content: "\1F525";
+    content: "\26A0";
 }
 
 
