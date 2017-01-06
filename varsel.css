@@ -9,9 +9,7 @@
     
     overflow: hidden;
     clear: both;
-
-    -webkit-transition: max-height 1s; /* For Safari 3.1 to 6.0 */
-    transition: max-height 1s;
+    opacity: 1;
 }
 
 .varsel-main{
@@ -59,10 +57,32 @@
 .varsel-type-success .varsel-icon{
     background-color: #2DAD57;
 }
-.varsel-type-success .varsel-body{
+.varsel-type-success{
     background-color: #57CD7E;
 }
 
 .varsel-destroy-animation{
-    max-height: 0px;
+    -webkit-animation: varsel-destroy-animation .12s;
+}
+
+.varsel-close-button{
+    position: relative;
+    top: 2px;
+    right: 4px;
+    border-radius: 5px;
+    height: 20px;
+    font-weight: 500;
+    font-size: 30px;
+}
+.varsel-close-button:hover{
+    font-weight: 900;
+    cursor: pointer;
+}
+.varsel-close-button:before{
+    content: "\00d7";
+}
+
+@-webkit-keyframes varsel-destroy-animation {
+    0% { opacity: 1; transform: scale( 1); }
+  100% { opacity: 0; transform: scale(.8); }
 }

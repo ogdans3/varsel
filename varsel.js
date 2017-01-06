@@ -47,9 +47,8 @@ varsel.prototype = {
                 //Remove the element from the DOM after the destroy animation has played
                 event.target.parentNode.removeChild(event.target);
             };
-
-            element.addEventListener("webkitTransitionEnd", destroy);
-            element.addEventListener("transitionend", destroy);
+            
+            element.addEventListener("animationend", destroy, false);
             element.className = element.className + " varsel-destroy-animation";
         }
     },
@@ -68,6 +67,15 @@ varsel.prototype = {
             }
             return container;
         };
+        
+        var createCloseButton = function(){
+            var closeButton = document.createElement("div");
+            closeButton.className = "varsel-close-button";
+            closeButton.addEventListener("click", function(){
+                self.hide();
+            })
+            return closeButton;
+        }
         
         var createIcon = function(){
             var icon = document.createElement("div");
@@ -106,14 +114,16 @@ varsel.prototype = {
         }
         
         var container = createContainer("success");
+        var closeButton = createCloseButton();
         var icon = createIcon();
         var body = createBody(this.text);
         
         container.appendChild(icon);
         container.appendChild(body);
+        container.appendChild(closeButton);
         append(container);
         
-        if(this.timeout != null && this.timeout != undefined){
+        if(this.timeout != null && this.timeout != undefined && this.timeout > -1){
             console.log("Timeout", this.timeout)
             setTimeout(function(){
                 self.hide();
