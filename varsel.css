@@ -1,11 +1,17 @@
 .varsel-container{
-    min-width: 400px;
-    clear: both;
-    min-height: 50px;
-    
     display: flex;
+
     margin-top: 4px;
     margin-bottom: 4px;
+
+    min-width: 400px;
+    max-height: 1000px;
+    
+    overflow: hidden;
+    clear: both;
+
+    -webkit-transition: max-height 1s; /* For Safari 3.1 to 6.0 */
+    transition: max-height 1s;
 }
 
 .varsel-main{
@@ -55,4 +61,8 @@
 }
 .varsel-type-success .varsel-body{
     background-color: #57CD7E;
+}
+
+.varsel-destroy-animation{
+    max-height: 0px;
 }

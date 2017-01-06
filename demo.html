@@ -7,7 +7,9 @@
 
     <script>
         varsel("Hello");
-        varsel(["This is a title", "This is the explanation"]);
+        setTimeout(function(){
+            varsel(["This is a title", "This is the explanation"]);            
+        }, 500);
         varsel({timeout: 10, title: "Hello", text: ["Hello1", "Hello2"], type: "warning"});
     </script>
 

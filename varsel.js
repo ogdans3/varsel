@@ -40,13 +40,22 @@ varsel.prototype = {
     hide: function () {
         console.log("Hide function called");
         var element = this.container;
+        console.log(this);
         if(element){
-            //Remove the element from the DOM
-            element.parentNode.removeChild(element);
+            var destroy = function(event){
+                console.log("Transition complete");
+                //Remove the element from the DOM after the destroy animation has played
+                event.target.parentNode.removeChild(event.target);
+            };
+
+            element.addEventListener("webkitTransitionEnd", destroy);
+            element.addEventListener("transitionend", destroy);
+            element.className = element.className + " varsel-destroy-animation";
         }
     },
     
     create: function(){
+        var self = this;
         var texts = this.texts;
         
         var createContainer = function(type){
@@ -103,6 +112,13 @@ varsel.prototype = {
         container.appendChild(icon);
         container.appendChild(body);
         append(container);
+        
+        if(this.timeout != null && this.timeout != undefined){
+            console.log("Timeout", this.timeout)
+            setTimeout(function(){
+                self.hide();
+            }, this.timeout * 1000);            
+        }
         
         this.container = container;
     }
