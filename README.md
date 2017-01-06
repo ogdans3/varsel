@@ -5,7 +5,7 @@
 This library has taken great inspiration from the notifications in the Atom editor. 
 [Atom notifications repo](https://github.com/atom/notifications)
 
-[Demo](http://varsel.freelunch.no)
+[Demo of Varsel](http://varsel.freelunch.no)
 
 ####Varsel in action
 ![](https://github.com/ogdans3/varsel/blob/master/videos/demo.gif)
