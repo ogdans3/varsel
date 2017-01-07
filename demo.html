@@ -26,6 +26,7 @@
 
         <button onclick = "onDismiss()">Math joke (callback chaining)</button>
         <button onclick = "chaining()">Chaining the alphabet</button>
+        <button onclick = "onBeforeDismiss()">Before dismiss</button>
 
         <button onclick = "differentInputFormats()">All different input formats at the same time</button>
     </div>
@@ -43,7 +44,8 @@
             differentInputFormats,
             
             chaining,
-            onDismiss
+            onDismiss,
+            onBeforeDismiss
         ];
         function allNotifications(){
             for(var i = 0; i < functions.length; i++){
@@ -112,8 +114,7 @@
                     title: "e",
                     timeout: 2,
                     text: "Waiting 500 milliseconds before displaying next, example of ajax request",
-                    //TODO: Replace this with beforeDismiss (timeout dismiss), when we create it
-                    onDismiss: function(varselObj, cb){
+                    onBeforeDismiss: function(varselObj, cb){
                         setTimeout(function(){
                             //First callback wins, i.e: If we first call the callback function with true the notifications will continue even if we call it with false right after and vice versa.
                             cb(); //Continue again or 
@@ -127,6 +128,19 @@
             list = list.concat(alphabet.split(""));
             varsel.queue({queue: list, timeout: .5});
         }
+        
+        function onBeforeDismiss(){
+            varsel({title: "Call function before the notification is dismissed", type: "info", onBeforeDismiss: function(varselObj, cb){
+                setTimeout(function(){
+                    var userInput = confirm("Click ok to dismiss notification or cancel to let the notification live forever!");
+                    console.log("User input", userInput)
+                    cb(userInput);
+                }, 1000);
+            }, onDismiss: function(){
+                alert("You didnt let it live forever T_T, monster!");
+            }});
+        }
+        
         function onDismiss(){
             varsel({title: "Math joke incoming", type: "warning", onDismiss: function(){
                 varsel({text: "3", type: "warning", timeout: 1, onDismiss: function(){
