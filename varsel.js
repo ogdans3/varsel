@@ -137,11 +137,17 @@ varsel.prototype = {
             self.settings.onDismiss = callback;
         }
         
-        if(!self.settings.title){
+        if(!self.settings.title && self.settings.text.length > 0){
             self.settings.title = self.settings.text.shift();
         }
         
+        if(!self.settings.title)
+            return;
         self.create();
+    },
+    
+    show: function(){
+        this.create();
     },
     
     hide: function (reason) {
@@ -154,6 +160,7 @@ varsel.prototype = {
                 //Remove the element from the DOM after the destroy animation has played
                 event.target.parentNode.removeChild(event.target);
                 self.settings.onDismiss(self);
+                self.container = null;
             };
             
             //Call this function before we dismiss the notification
@@ -175,6 +182,8 @@ varsel.prototype = {
     
     create: function(){
         var self = this;
+        if(self.container !== null)
+            return;
         
         var title = self.settings.title;
         var text = self.settings.text;
