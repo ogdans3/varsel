@@ -1,12 +1,15 @@
 /* The container styles */
 .varsel-container{
-    display: flex;
-
+    display: table;
+    table-layout: fixed;
+    
     margin-top: 4px;
     margin-bottom: 4px;
 
     min-width: 400px;
     max-height: 1000px;
+    
+    width: 400px;
     
     overflow: hidden;
     opacity: 1;
@@ -22,11 +25,15 @@
     right: 10px;
 }
 
+.varsel-icon, .varsel-body, .varsel-close-button{
+    display: table-cell;
+}
 
 /* Icon styles */
 .varsel-icon{
     width: 30px;
     line-height: 50px;
+    height: 100%;
 }
 
 .varsel-icon:before{
@@ -45,9 +52,11 @@
 /* Body styles*/
 .varsel-body{
     line-height: 100%;
-    padding-left: 20px;
-    flex: 1 1 0;
     min-width: 0px;
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .varsel-body-line{
@@ -67,6 +76,7 @@
     height: 20px;
     font-weight: 500;
     font-size: 30px;
+    width: 30px;
 }
 .varsel-close-button:hover{
     font-weight: 900;
