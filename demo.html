@@ -12,6 +12,7 @@
     </style>
     
     <div>
+        <button onclick = "gif()">Functions used for "Varsel in action"</button>
         <button onclick = "allNotifications()">All buttons</button>
         <button onclick = "allNotificationsWithDelay(0)">All buttons with delay</button>
 
@@ -47,6 +48,28 @@
             onDismiss,
             onBeforeDismiss
         ];
+        var functions_gif = [
+            default_success,
+            default_info,
+            default_warning,
+            default_error,
+
+            onDismiss,
+        ];        
+        function gif(){
+            
+            var next = function(i){
+                if(i >= functions.length){
+                    return;
+                }
+                setTimeout(function(){
+                    functions_gif[i].call();
+                    next(i + 1);
+                }, 1200);
+            }
+            next(0);            
+        }
+        
         function allNotifications(){
             for(var i = 0; i < functions.length; i++){
                 functions[i].call();
