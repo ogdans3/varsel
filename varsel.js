@@ -37,6 +37,47 @@ varsel.settings = {
     }
 }
 
+varsel.queue = function(obj){
+    console.log(obj);
+    var queue;
+    var timeout;
+    
+    if(obj.constructor === String){
+        queue = [obj];
+    }else if(obj.constructor === Array){
+        queue = obj;
+    }else if(obj.constructor === Object){
+        if(obj.queue.constructor === String)
+            queue = [obj.queue];
+        else if(obj.queue.constructor === Array)
+            queue = obj.queue;
+        timeout = obj.timeout;
+    }
+    var next = function(i){
+        if(i > queue.length - 1)
+            return;
+        if(queue[i].constructor !== Object){
+            queue[i] = {text: queue[i]};
+        }
+        if(timeout != null && timeout != undefined && timeout !== false && timeout > -1 && !(queue[i].timeout !== undefined && queue[i].timeout !== null && queue[i].timeout.constructor === Number))
+            queue[i].timeout = timeout;
+        console.log(queue[i]);
+        varsel(queue[i], function(varselObj){
+            if(queue[i].onDismiss && queue[i].onDismiss){
+                var continueQueue = queue[i].onDismiss(varselObj, function(continueQueue){
+                    if(continueQueue === false)
+                        return;
+                    next(i + 1);
+                });
+                if(continueQueue === false)
+                    return;
+            }
+            next(i + 1);
+        });        
+    }
+    next(0);
+}
+
 varsel.prototype = {
     container: null,
     
@@ -110,7 +151,7 @@ varsel.prototype = {
             var destroy = function(event){
                 //Remove the element from the DOM after the destroy animation has played
                 event.target.parentNode.removeChild(event.target);
-                self.settings.onDismiss();
+                self.settings.onDismiss(self);
             };
             
             element.addEventListener("animationend", destroy, false);

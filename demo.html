@@ -25,6 +25,7 @@
         <button onclick = "manyLines()">Notification with many lines</button>
 
         <button onclick = "onDismiss()">Math joke (callback chaining)</button>
+        <button onclick = "chaining()">Math joke (queue)</button>
 
         <button onclick = "differentInputFormats()">All different input formats at the same time</button>
     </div>
@@ -82,6 +83,45 @@
         }
         function manyLines(){
             varsel(["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"], function(){varsel("That was alot of text!!")});
+        }
+        function chaining(){
+            var list = [{
+                title: "Chaining the alphabet",
+                text: "Here we go"
+                }, {
+                    title: "a"
+                }, {
+                    title: "b",
+                    type: "info"
+                }, {
+                    title: "c",
+                    type: "warning"
+                }, {
+                    title: "d",
+                    text: "Long timeout",
+                    type: "error",
+                    timeout: 2,
+                    onDismiss: function(){
+                        //Uncomment this line to stop on this element
+                        //return false;
+                    }
+                }, {
+                    title: "e",
+                    text: "Trying onDismiss callback instead of return false",
+                    //TODO: Replace this with beforeDismiss (timeout dismiss), when we create it
+                    onDismiss: function(varselObj, cb){
+                        setTimeout(function(){
+                            //First callback wins, i.e: If we first call the callback function with true the notifications will continue even if we call it with false right after and vice versa.
+                            cb(); //Continue again or 
+                            //cb(false); //Stop execution
+                        }, 500)
+                        return false;
+                    }
+                }
+            ];
+            var alphabet = "fghijklmnopqrstuvwxyx";
+            list = list.concat(alphabet.split(""));
+            varsel.queue({queue: list, timeout: .5});
         }
         function onDismiss(){
             varsel({title: "Math joke incoming", type: "warning", onDismiss: function(){
