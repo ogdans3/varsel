@@ -10,6 +10,26 @@ This library has taken great inspiration from the notifications in the Atom edit
 ###Varsel in action
 ![](https://github.com/ogdans3/varsel/blob/master/videos/demo.gif)
 
+###Usage
+`varsel(title, text, type, timeout, onDismiss)` 
+
+This is the normal varsel function. You can choose to give varsel an object instead:
+`varsel({Object})`
+
+Each argument to varsel is optional, not giving any arguments will not display any notification
+
+Each argument can be replaced for the `onDismiss` function.
+
+The `title` argument can be a `String`, `[Array]` of strings or `{Object}`. The `{Object}` specification is given below.
+
+The `text` argument can be a `String` or `[Array]` of strings.
+
+The `type` argument can a `String`.
+
+The `timeout` argument can be a `Number`, `float` or `false`.
+
+
+
 ###Examples
 If nothing is specified then the notification will dismiss itself after two seconds. The explanation for each example is below the given code.
 
@@ -96,9 +116,12 @@ var alphabet = "fghijklmnopqrstuvwxyx";
 list = list.concat(alphabet.split(""));
 varsel.queue({queue: list, timeout: .5});
 ```
-Shows the alphabet, one notification at a time. When one is dismissed then the next will appear, each element in the list can be configured as a normal varsel object. Or you can simple give a list of strings, a single string or a list of strings and/or objects.
+Shows the alphabet, one notification at a time. When one is dismissed then the next will appear, each element in the list can be configured as a normal varsel object. Or you can simple give a list of strings, a single string or a list of strings and/or objects. 
+
+You can also give the queue function a different timeout than the normal default setting, this will give every notification in the queue that timeout, it will be overwritten if a timeout is given in the varsel object.
 
 ###Configuration
+Configuration of a varsel object (the object given to the varsel function, not the actual parameters given. Please view the Usage section above)
 | Argument         | Default value    | Description   |
 |------------------|------------------|---------------|
 | `title`          | `""`             | No special styles contra the text element, but will always be the first line in the notification  |
@@ -113,7 +136,7 @@ Shows the alphabet, one notification at a time. When one is dismissed then the n
 |------------------|------------------|
 | `varsel.settings.get()`| Returns the global settings (default values) for all varsel objects |
 | `varsel.settings.set(key, value)`| Sets a specific key value pair in the settings. The settings are cloned when creating a new notification but deep copy is not used. It is therefore recommended that `value` is not a deep object (object within object) and so. |
-| `varsel.queue([Array] or String)`| Sets a list of notifications to show after each other (when one is dismissed then the next will show). Each element in the array is its own varsel object, or a single string. See usage example above|
+| `varsel.queue({Object} or [Array] or String)`| Sets a list of notifications to show after each other (when one is dismissed then the next will show). Each element in the array is its own varsel object, or a single string. If a object is given, there should be a queue key in the object to specify the list of notifications to show. A default timeout can also be given to the notifications in the queue. See usage example above|
 
 ###Properties
 | Property         | Default value    | Description   |
