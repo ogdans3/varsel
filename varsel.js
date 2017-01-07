@@ -1,49 +1,116 @@
-function varsel(obj){
-    if (window === this) {
-        return new varsel(obj);
+function varsel(title, text, type, timeout, callback){
+    var self = this;
+    if (window === self) {
+        return new varsel(title, text, type, timeout, callback);
 	}
+    self.init(title, text, type, timeout, callback);
+    return self;
+}
 
-    //Default values to show
-    var title = "";
-    var texts = [];
-    var type = "success";
-    var timeout = 2;
+//Default values to show. This does not perform deep copy, so if there is a nested object then it will reference the settings object.
+varsel.settings = {
+    _settings: {
+        title: "",
+        text: [],
+        type: "success",
+        timeout: 2,
+        onDismiss: function(){}
+    },
     
-    if(obj.constructor === Array){
-        texts = obj;
-    }else if(typeof obj === "string"){
-        texts.push(obj);
-    }else if(obj !== null && typeof obj === "object"){
-        title = obj.title;
-        type = obj.type || type;
-        timeout = obj.timeout || timeout;
+    get: function(){
+        return this.clone();
+    },
+    
+    set: function(key, value){
+        this._settings[key] = value;
+    },
+    
+    clone: function(){
+        var self = this;
         
-        //When we get a text element we still need to see if its an array or just a string.
-        if(obj.text.constructor === Array)
-            texts = obj.text;
-        else if(typeof obj.text === "string")
-            texts.push(obj.text);
+        var obj = {};
+        var keys = Object.keys(self._settings);
+        for(var i = 0; i < keys.length; i++){
+            obj[keys[i]] = self._settings[keys[i]];
+        }
+        return obj;
     }
-    
-    this.texts = texts;
-    this.type = type;
-    this.timeout = timeout;
-    this.title = title;
-
-    this.create();
-
-    return this;
 }
 
 varsel.prototype = {
     container: null,
     
+    init: function(title, text, type, timeout, callback){
+        var self = this;
+
+        //Set the default settings, these can safely be overwritten (aslong as there is no nested objects)
+        self.settings = varsel.settings.get();
+        
+        var setSettings = function(obj){
+            var keys = Object.keys(obj);
+            for(var i = 0; i < keys.length; i++){
+                if(keys[i] == "text"){
+                    self.settings.text = self.settings.text.concat(obj[keys[i]]);
+                }else{
+                    self.settings[keys[i]] = obj[keys[i]];                    
+                }
+            }
+        }
+        
+        if(title === undefined || title === null){
+        }else if(title.constructor === String){
+            self.settings.title = title;
+        }else if(title.constructor === Array){
+            self.settings.text = self.settings.text.concat(title);
+        }else if(title.constructor === Object){
+            setSettings(title);
+        }else if(typeof title === "function"){
+            self.settings.onDismiss = title;
+        }
+        
+        if(text === undefined || text === null){
+        }else if(text.constructor === String){
+            self.settings.text = self.settings.text.concat([text]);
+        }else if(text.constructor === Array){
+            self.settings.text = self.settings.text.concat(text);
+        }else if(typeof text === "function"){
+            self.settings.onDismiss = text;
+        }
+        
+        if(type === undefined || type === null){
+        }else if(type.constructor === String){
+            self.settings.type = type;
+        }else if(typeof type === "function"){
+            self.settings.onDismiss = type;
+        }
+        
+        if(timeout === undefined || timeout === null){
+        }else if(timeout.constructor === Number){
+            self.settings.timeout = timeout;
+        }else if(typeof timeout === "function"){
+            self.settings.onDismiss = timeout;
+        }
+        
+        if(typeof callback === "function"){
+            self.settings.onDismiss = callback;
+        }
+        
+        if(!self.settings.title){
+            self.settings.title = self.settings.text.shift();
+        }
+        
+        self.create();
+    },
+    
     hide: function () {
-        var element = this.container;
+        var self = this;
+        
+        var element = self.container;
         if(element){
             var destroy = function(event){
                 //Remove the element from the DOM after the destroy animation has played
                 event.target.parentNode.removeChild(event.target);
+                self.settings.onDismiss();
             };
             
             element.addEventListener("animationend", destroy, false);
@@ -51,10 +118,18 @@ varsel.prototype = {
         }
     },
     
+    getSettings: function(){
+        return this.settings;
+    },
+    
     create: function(){
         var self = this;
-        var texts = this.texts;
         
+        var title = self.settings.title;
+        var text = self.settings.text;
+        var type = self.settings.type;
+        var timeout = self.settings.timeout;
+                
         var createContainer = function(type){
             var container = document.createElement("div");
             container.className = "varsel-container " + "varsel-type-" + type;
@@ -74,15 +149,19 @@ varsel.prototype = {
             return icon;
         }
         
-        var createBody = function(text){
+        var createBody = function(){
             var body = document.createElement("div");
             body.className = "varsel-body";
-            for(var i = 0; i < texts.length; i++){
-                var text = texts[i];
+            var bodyLine = function(text){
+                var text = text;
                 var line = document.createElement("div");
                 line.className = "varsel-body-line";
                 line.innerHTML = text;
-                body.appendChild(line);            
+                return line;
+            }
+            body.appendChild(bodyLine(title));
+            for(var i = 0; i < text.length; i++){
+                body.appendChild(bodyLine(text[i]));
             }
             return body;
         }
@@ -113,22 +192,22 @@ varsel.prototype = {
             mainContainer.appendChild(element);
         }
         
-        var container = createContainer(self.type);
+        var container = createContainer(type);
         var closeButton = createCloseButton();
         var icon = createIcon();
-        var body = createBody(this.text);
+        var body = createBody();
         
         container.appendChild(icon);
         container.appendChild(body);
         container.appendChild(closeButton);
         append(container);
         
-        if(this.timeout != null && this.timeout != undefined && this.timeout > -1){
+        if(timeout != null && timeout != undefined && timeout !== false && timeout > -1){
             setTimeout(function(){
                 self.hide();
-            }, this.timeout * 1000);            
+            }, timeout * 1000);            
         }
         
-        this.container = container;
+        self.container = container;
     }
 }

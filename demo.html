@@ -23,6 +23,10 @@
         <button onclick = "noTimeout()">Notification with no timeout</button>
         <button onclick = "long()">Long notification</button>
         <button onclick = "manyLines()">Notification with many lines</button>
+
+        <button onclick = "onDismiss()">Math joke (callback chaining)</button>
+
+        <button onclick = "differentInputFormats()">All different input formats at the same time</button>
     </div>
 
     <script>
@@ -34,7 +38,8 @@
             
             noTimeout,
             long,
-            manyLines
+            manyLines,
+            differentInputFormats
         ];
         function allNotifications(){
             for(var i = 0; i < functions.length; i++){
@@ -43,6 +48,9 @@
         }
         function allNotificationsWithDelay(){
             var next = function(i){
+                if(i >= functions.length){
+                    return;
+                }
                 setTimeout(function(){
                     functions[i].call();
                     next(i + 1);
@@ -73,7 +81,33 @@
             varsel({text: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"});
         }
         function manyLines(){
-            varsel(["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]);
+            varsel(["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"], function(){varsel("That was alot of text!!")});
+        }
+        function onDismiss(){
+            varsel({title: "Math joke incoming", type: "warning", onDismiss: function(){
+                varsel({text: "3", type: "warning", timeout: 1, onDismiss: function(){
+                    varsel({text: "2", type: "warning", timeout: 1, onDismiss: function(){
+                        varsel({text: "1", timeout: 1, type: "warning", onDismiss: function(){
+                            varsel("Pi said to i", function(){
+                                varsel("Be real", function(){
+                                    varsel("i was offended by this and replied", "Be rational!", function(){
+                                        varsel("Math jokes always makes me crack up", ":D");
+                                    });
+                                });
+                            });
+                        }});
+                    }});
+                }});
+            }});
+        }
+        function differentInputFormats(){
+            varsel("Title", "Text", "error", 5, function(){console.log("Single input completed successfully, should have taken 5 seconds to disappear")});
+            varsel("Title", ["Line 1", "Line 2"], "warning", 5, function(){console.log("Text list completed successfully, should have taken 5 seconds to disappear")});
+            varsel(["Line 1", "Line 2"], ["Line 3", "Line 4"], "info", 5, function(){console.log("Title list and text list input completed successfully, should have taken 5 seconds to disappear")});
+            varsel(["Line 1", "Line 2"], "info", 5, function(){console.log("Should take 2 seconds, with two lines")});
+            varsel({title: "Title 1", text: ["Text 1", "Text 2"], type: "success", timeout: 1, onDismiss: function(){console.log("Object successfull")}});
+            varsel({title: "Forever", timeout: false, onDismiss: function(){console.log("Forever")}});
+            varsel({title: "Forever", timeout: -1, onDismiss: function(){console.log("Forever")}});
         }
     </script>
 
