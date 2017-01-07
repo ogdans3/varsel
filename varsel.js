@@ -59,7 +59,7 @@ varsel.queue = function(obj){
         if(queue[i].constructor !== Object){
             queue[i] = {text: queue[i]};
         }
-        if(timeout != null && timeout != undefined && timeout !== false && timeout > -1 && !(queue[i].timeout !== undefined && queue[i].timeout !== null && queue[i].timeout.constructor === Number))
+        if(timeout != null && timeout != undefined && timeout !== false && timeout >= 0 && !(queue[i].timeout !== undefined && queue[i].timeout !== null && queue[i].timeout.constructor === Number))
             queue[i].timeout = timeout;
         varsel(queue[i], function(varselObj){
             if(queue[i].onDismiss && queue[i].onDismiss){
@@ -79,6 +79,8 @@ varsel.queue = function(obj){
 
 varsel.prototype = {
     container: null,
+    settings: null,
+    dismissalReason: null,
     
     init: function(title, text, type, timeout, callback){
         var self = this;
@@ -142,8 +144,9 @@ varsel.prototype = {
         self.create();
     },
     
-    hide: function () {
+    hide: function (reason) {
         var self = this;
+        self.dismissalReason = reason;
         
         var element = self.container;
         if(element){
@@ -156,8 +159,10 @@ varsel.prototype = {
             //Call this function before we dismiss the notification
             self.settings.onBeforeDismiss(self, function(dismiss){
                 //If dismiss is false then the notification will not be dismissed, will have 
-                if(dismiss === false)
+                if(dismiss === false){
+                    self.dismissalReason = null;
                     return;
+                }
                 element.addEventListener("animationend", destroy, false);
                 element.className = element.className + " varsel-destroy-animation";                
             });
@@ -216,7 +221,7 @@ varsel.prototype = {
             var closeButton = document.createElement("div");
             closeButton.className = "varsel-close-button";
             closeButton.addEventListener("click", function(){
-                self.hide();
+                self.hide("button");
             })
             return closeButton;
         }
@@ -248,9 +253,9 @@ varsel.prototype = {
         container.appendChild(closeButton);
         append(container);
         
-        if(timeout != null && timeout != undefined && timeout !== false && timeout > -1){
+        if(timeout != null && timeout != undefined && timeout !== false && timeout >= 0){
             setTimeout(function(){
-                self.hide();
+                self.hide("timeout");
             }, timeout * 1000);            
         }
         
