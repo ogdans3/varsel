@@ -38,7 +38,6 @@ varsel.settings = {
 }
 
 varsel.queue = function(obj){
-    console.log(obj);
     var queue;
     var timeout;
     
@@ -61,7 +60,6 @@ varsel.queue = function(obj){
         }
         if(timeout != null && timeout != undefined && timeout !== false && timeout > -1 && !(queue[i].timeout !== undefined && queue[i].timeout !== null && queue[i].timeout.constructor === Number))
             queue[i].timeout = timeout;
-        console.log(queue[i]);
         varsel(queue[i], function(varselObj){
             if(queue[i].onDismiss && queue[i].onDismiss){
                 var continueQueue = queue[i].onDismiss(varselObj, function(continueQueue){

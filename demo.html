@@ -25,7 +25,7 @@
         <button onclick = "manyLines()">Notification with many lines</button>
 
         <button onclick = "onDismiss()">Math joke (callback chaining)</button>
-        <button onclick = "chaining()">Math joke (queue)</button>
+        <button onclick = "chaining()">Chaining the alphabet</button>
 
         <button onclick = "differentInputFormats()">All different input formats at the same time</button>
     </div>
@@ -40,7 +40,10 @@
             noTimeout,
             long,
             manyLines,
-            differentInputFormats
+            differentInputFormats,
+            
+            chaining,
+            onDismiss
         ];
         function allNotifications(){
             for(var i = 0; i < functions.length; i++){
@@ -98,16 +101,17 @@
                     type: "warning"
                 }, {
                     title: "d",
-                    text: "Long timeout",
+                    text: "Different timeout",
                     type: "error",
-                    timeout: 2,
+                    timeout: 1,
                     onDismiss: function(){
                         //Uncomment this line to stop on this element
                         //return false;
                     }
                 }, {
                     title: "e",
-                    text: "Trying onDismiss callback instead of return false",
+                    timeout: 2,
+                    text: "Waiting 500 milliseconds before displaying next, example of ajax request",
                     //TODO: Replace this with beforeDismiss (timeout dismiss), when we create it
                     onDismiss: function(varselObj, cb){
                         setTimeout(function(){
@@ -147,7 +151,7 @@
             varsel(["Line 1", "Line 2"], "info", 5, function(){console.log("Should take 2 seconds, with two lines")});
             varsel({title: "Title 1", text: ["Text 1", "Text 2"], type: "success", timeout: 1, onDismiss: function(){console.log("Object successfull")}});
             varsel({title: "Forever", timeout: false, onDismiss: function(){console.log("Forever")}});
-            varsel({title: "Forever", timeout: -1, onDismiss: function(){console.log("Forever")}});
+            varsel({title: "Forever red", text: "Best colour", type: "error", timeout: -1, onDismiss: function(){console.log("Forever")}});
         }
     </script>
 
