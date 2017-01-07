@@ -14,7 +14,8 @@ varsel.settings = {
         text: [],
         type: "success",
         timeout: 2,
-        onDismiss: function(){}
+        onDismiss: function(){},
+        onBeforeDismiss: function(obj, cb){cb()}
     },
     
     get: function(){
@@ -152,8 +153,14 @@ varsel.prototype = {
                 self.settings.onDismiss(self);
             };
             
-            element.addEventListener("animationend", destroy, false);
-            element.className = element.className + " varsel-destroy-animation";
+            //Call this function before we dismiss the notification
+            self.settings.onBeforeDismiss(self, function(dismiss){
+                //If dismiss is false then the notification will not be dismissed, will have 
+                if(dismiss === false)
+                    return;
+                element.addEventListener("animationend", destroy, false);
+                element.className = element.className + " varsel-destroy-animation";                
+            });
         }
     },
     
