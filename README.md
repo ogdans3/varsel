@@ -122,6 +122,7 @@ You can also give the queue function a different timeout than the normal default
 
 ###Configuration
 Configuration of a varsel object (the object given to the varsel function, not the actual parameters given. Please view the Usage section above)
+
 | Argument         | Default value    | Description   |
 |------------------|------------------|---------------|
 | `title`          | `""`             | No special styles contra the text element, but will always be the first line in the notification  |
