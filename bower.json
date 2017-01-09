@@ -1,0 +1,21 @@
+{
+  "name": "varsel",
+  "description": "Javascript notification library",
+  "main": "varsel.js",
+  "authors": [
+    "Gabriel Berthling-Hansen <gabrielbhansen@hotmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "varsel.freelunch.no",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
