@@ -54,7 +54,7 @@ describe("Text", function(){
         var v1 = varsel("placeHolder", text);
         var v2 = varsel({title: "placeHolder", text: text});
         expect(v1.settings.text).to.be.eql(text);
-        expect(v2.settings.text).to.be.eql([text]);
+        expect(v2.settings.text).to.be.eql(text);
     });
 
     it("Set text to Function", function() {
