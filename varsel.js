@@ -14,6 +14,7 @@ varsel.settings = {
         text: [],
         type: "success",
         timeout: 2,
+        displayAfterCreation: true, //If false then varsel will not show the notification without show being called
         onDismiss: function(){},
         onBeforeDismiss: function(obj, cb){cb()}
     },
@@ -41,8 +42,9 @@ varsel.settings = {
 varsel.queue = function(obj){
     var queue;
     var timeout;
+    //This variable can be set in the queue object. If set to false then the notification queue will not begin showing the notifications, this will be up to the user.
+    var displayAfterCreation = true;
 
-    console.log(obj);
     if(obj === null || obj === undefined){
         return;
     }else if(obj.constructor === String){
@@ -55,29 +57,46 @@ varsel.queue = function(obj){
         else if(obj.queue.constructor === Array)
             queue = obj.queue;
         timeout = obj.timeout;
+        displayAfterCreation = obj.displayAfterCreation === false ? false : true;
     }
-    var next = function(i){
-        if(i > queue.length - 1)
-            return;
+
+    var varselObjs = [];
+    for(var i = 0; i < queue.length; i++){
         if(queue[i].constructor !== Object){
             queue[i] = {text: queue[i]};
         }
         if(timeout != null && timeout != undefined && timeout !== false && timeout >= 0 && !(queue[i].timeout !== undefined && queue[i].timeout !== null && queue[i].timeout.constructor === Number))
             queue[i].timeout = timeout;
-        varsel(queue[i], function(varselObj){
-            if(queue[i].onDismiss && queue[i].onDismiss){
-                var continueQueue = queue[i].onDismiss(varselObj, function(continueQueue){
-                    if(continueQueue === false)
+        queue[i].displayAfterCreation = false;
+
+        var vTemp = varsel(queue[i]);
+        varselObjs.push(vTemp);
+    }
+
+
+    var next = function(i){
+        if(i > varselObjs.length - 1)
+            return;
+        //We have to rewrite the onDismiss function so that we can control if we should continue the execution.
+        varselObjs[i].settings.onDismiss = function(varselObject){
+            if(queue[i].onDismiss){
+                var continueQueue = queue[i].onDismiss(varselObject, function(returned){
+                    if(returned === false)
                         return;
                     next(i + 1);
-                });
+                })
                 if(continueQueue === false)
                     return;
             }
             next(i + 1);
-        });
+        };
+        varselObjs[i].show()
     }
-    next(0);
+
+    if(displayAfterCreation)
+        next(0);
+
+    return varselObjs;
 }
 
 varsel.prototype = {
@@ -138,12 +157,13 @@ varsel.prototype = {
             self.settings.onDismiss = callback;
         }
 
-//        if(!self.settings.title)
-//            return;
         if(self.settings.title.constructor !== Array){
             self.settings.title = [self.settings.title];
         }
-        self.create();
+
+        if(self.settings.displayAfterCreation === true){
+            self.create();
+        }
     },
 
     show: function(){

@@ -4,13 +4,13 @@
         <script src="varsel.js"></script>
     </head>
 <body>
-    
+
     <style>
         button{
             display: block;
         }
     </style>
-    
+
     <div>
         <button onclick = "gif()">Functions used for "Varsel in action"</button>
         <button onclick = "allNotifications()">All buttons</button>
@@ -38,12 +38,12 @@
             default_info,
             default_warning,
             default_error,
-            
+
             noTimeout,
             long,
             manyLines,
             differentInputFormats,
-            
+
             chaining,
             onDismiss,
             onBeforeDismiss
@@ -55,9 +55,9 @@
             default_error,
 
             onDismiss,
-        ];        
+        ];
         function gif(){
-            
+
             var next = function(i){
                 if(i >= functions.length){
                     return;
@@ -67,9 +67,9 @@
                     next(i + 1);
                 }, 1200);
             }
-            next(0);            
+            next(0);
         }
-        
+
         function allNotifications(){
             for(var i = 0; i < functions.length; i++){
                 functions[i].call();
@@ -83,12 +83,12 @@
                 setTimeout(function(){
                     functions[i].call();
                     next(i + 1);
-                }, 500)                
+                }, 500)
             }
             next(0);
         }
 
-        
+
         function default_success(){
             varsel("Good job!");
         }
@@ -140,18 +140,19 @@
                     onBeforeDismiss: function(varselObj, cb){
                         setTimeout(function(){
                             //First callback wins, i.e: If we first call the callback function with true the notifications will continue even if we call it with false right after and vice versa.
-                            cb(); //Continue again or 
+                            cb(); //Continue again or
                             //cb(false); //Stop execution
                         }, 500)
                         return false;
                     }
                 }
             ];
-            var alphabet = "fghijklmnopqrstuvwxyx";
+            var alphabet = "fghijklmnopqrstuvwxyz";
             list = list.concat(alphabet.split(""));
-            varsel.queue({queue: list, timeout: .5});
+            var q1 = varsel.queue({queue: list, timeout: .5});
+            console.log(q1);
         }
-        
+
         function onBeforeDismiss(){
             varsel({title: "Call function before the notification is dismissed", type: "info", onBeforeDismiss: function(varselObj, cb){
                 setTimeout(function(){
@@ -163,7 +164,7 @@
                 alert("You didnt let it live forever T_T, monster!");
             }});
         }
-        
+
         function onDismiss(){
             varsel({title: "Math joke incoming", type: "warning", onDismiss: function(){
                 varsel({text: "3", type: "warning", timeout: 1, onDismiss: function(){
