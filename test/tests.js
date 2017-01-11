@@ -7,7 +7,7 @@ describe("Varsel ", function(){
     it("Varsel exists", function() {
         expect(varsel).to.not.be.null.and.to.not.be.undefined;
     });
-})
+});
 
 describe("Title", function(){
     it("Set title to String", function() {
@@ -18,8 +18,7 @@ describe("Title", function(){
     it("Set title to list", function() {
         var title = ["Title 1", "Title 2"];
         var v1 = varsel(title);
-        expect(v1.settings.title).to.be.equal(title[0]);
-        expect(v1.settings.text).to.be.eql([title[1]]);
+        expect(v1.settings.title).to.be.eql(title);
     });
 
     it("Set title from Object", function() {
@@ -30,15 +29,14 @@ describe("Title", function(){
         var v2 = varsel(obj2);
         var v3 = varsel(obj3);
         expect(v1.settings.title).to.be.equal(obj1.title);
-        expect(v2.settings.title).to.be.equal(obj2.title[0]); //This needs to be fixed to do the same as the "Set title to list" test.
-        expect(v3.settings.title).to.be.eql(obj3.text[0]);
+        expect(v2.settings.title).to.be.eql(obj2.title);
     });
 
     it("Set title to Function", function() {
         var title = function(){console.log("hello")};
         expect(varsel(title).settings.onDismiss).to.be.equal(title);
     });
-})
+});
 
 describe("Text", function(){
     it("Set text to String", function() {
@@ -61,7 +59,7 @@ describe("Text", function(){
         var text = function(){console.log("hello")};
         expect(varsel("placeHolder", text).settings.onDismiss).to.be.equal(text);
     });
-})
+});
 
 describe("Type", function(){
     it("Set type to success", function() {
@@ -100,7 +98,7 @@ describe("Type", function(){
         var type = function(){console.log("hello")};
         expect(varsel("placeHolder", "placeHolder", type).settings.onDismiss).to.be.equal(type);
     });
-})
+});
 
 describe("Timeout", function(){
     it("Set timeout to 3", function() {
@@ -110,7 +108,7 @@ describe("Timeout", function(){
         expect(v1.settings.timeout).to.be.eql(timeout);
         expect(v2.settings.timeout).to.be.eql(timeout);
     });
-})
+});
 
 describe("onDismiss", function(){
     it("Set onDismiss", function() {
@@ -120,4 +118,4 @@ describe("onDismiss", function(){
         expect(v1.settings.onDismiss).to.be.eql(onDismiss);
         expect(v2.settings.onDismiss).to.be.eql(onDismiss);
     });
-})
+});

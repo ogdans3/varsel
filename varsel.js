@@ -10,7 +10,7 @@ function varsel(title, text, type, timeout, callback){
 //Default values to show. This does not perform deep copy, so if there is a nested object then it will reference the settings object.
 varsel.settings = {
     _settings: {
-        title: "",
+        title: [],
         text: [],
         type: "success",
         timeout: 2,
@@ -93,8 +93,6 @@ varsel.prototype = {
             for(var i = 0; i < keys.length; i++){
                 if(keys[i] == "text"){
                     self.settings.text = self.settings.text.concat(obj[keys[i]]);
-                }else if(keys[i] == "title" && obj[keys[i]] && obj[keys[i]].constructor === Array){
-                    self.settings.text = self.settings.text.concat(obj[keys[i]]);
                 }else{
                     self.settings[keys[i]] = obj[keys[i]];
                 }
@@ -102,10 +100,8 @@ varsel.prototype = {
         }
 
         if(title === undefined || title === null){
-        }else if(title.constructor === String){
+        }else if(title.constructor === String || title.constructor === Array){
             self.settings.title = title;
-        }else if(title.constructor === Array){
-            self.settings.text = self.settings.text.concat(title);
         }else if(title.constructor === Object){
             setSettings(title);
         }else if(typeof title === "function"){
@@ -139,12 +135,8 @@ varsel.prototype = {
             self.settings.onDismiss = callback;
         }
 
-        if(!self.settings.title && self.settings.text.length > 0){
-            self.settings.title = self.settings.text.shift();
-        }
-
-        if(!self.settings.title)
-            return;
+//        if(!self.settings.title)
+//            return;
         self.create();
     },
 
@@ -221,7 +213,9 @@ varsel.prototype = {
                 line.innerHTML = text;
                 return line;
             }
-            body.appendChild(bodyLine(title));
+            for(var i = 0; i < title.length; i++){
+                body.appendChild(bodyLine(title[i]));
+            }
             for(var i = 0; i < text.length; i++){
                 body.appendChild(bodyLine(text[i]));
             }
