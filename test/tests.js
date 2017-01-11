@@ -12,7 +12,9 @@ describe("Varsel ", function(){
 describe("Title", function(){
     it("Set title to String", function() {
         var title = "Test";
-        expect(varsel(title).settings.title).to.be.equal(title);
+        var v1 = varsel(title);
+        console.log(v1);
+        expect(v1.settings.title).to.be.eql([title]);
     });
 
     it("Set title to list", function() {
@@ -28,7 +30,7 @@ describe("Title", function(){
         var v1 = varsel(obj1);
         var v2 = varsel(obj2);
         var v3 = varsel(obj3);
-        expect(v1.settings.title).to.be.equal(obj1.title);
+        expect(v1.settings.title).to.be.eql([obj1.title]);
         expect(v2.settings.title).to.be.eql(obj2.title);
     });
 

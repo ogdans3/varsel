@@ -42,7 +42,10 @@ varsel.queue = function(obj){
     var queue;
     var timeout;
 
-    if(obj.constructor === String){
+    console.log(obj);
+    if(obj === null || obj === undefined){
+        return;
+    }else if(obj.constructor === String){
         queue = [obj];
     }else if(obj.constructor === Array){
         queue = obj;
@@ -137,6 +140,9 @@ varsel.prototype = {
 
 //        if(!self.settings.title)
 //            return;
+        if(self.settings.title.constructor !== Array){
+            self.settings.title = [self.settings.title];
+        }
         self.create();
     },
 
