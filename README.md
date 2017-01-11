@@ -2,7 +2,7 @@
 
 ###Varsel is a javascript library for adding notifications to the browser
 
-This library has taken great inspiration from the notifications in the Atom editor. 
+This library has taken great inspiration from the notifications in the Atom editor.
 [Atom notifications repo](https://github.com/atom/notifications)
 
 [Demo of Varsel](http://varsel.freelunch.no)
@@ -11,7 +11,7 @@ This library has taken great inspiration from the notifications in the Atom edit
 ![](https://github.com/ogdans3/varsel/blob/master/videos/demo.gif)
 
 ###Usage
-`varsel(title, text, type, timeout, onDismiss)` 
+`varsel(title, text, type, timeout, onDismiss)`
 
 This is the normal varsel function. You can choose to give varsel an object instead:
 `varsel({Object})`
@@ -52,8 +52,8 @@ varsel({timeout: false, text: "No timeout!"});
 Shows a notification which will *not* dismiss itself.
 
 ```javascript
-varsel(["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]);
-varsel({text: ["This is a title", "This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]});
+varsel(["This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]);
+varsel({text: ["This is the explanation", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines", "Many lines"]});
 ```
 Shows a message with multiple input lines. Both methods accomplish the same task, and the output is the same.
 
@@ -105,7 +105,7 @@ var list = [{
         onBeforeDismiss: function(varselObj, cb){
             setTimeout(function(){
                 //First callback wins, i.e: If we first call the callback function with true the notifications will continue even if we call it with false right after and vice versa.
-                cb(); //Continue again or 
+                cb(); //Continue again or
                 //cb(false); //Stop execution
             }, 500)
             return false;
@@ -116,7 +116,7 @@ var alphabet = "fghijklmnopqrstuvwxyx";
 list = list.concat(alphabet.split(""));
 varsel.queue({queue: list, timeout: .5});
 ```
-Shows the alphabet, one notification at a time. When one is dismissed then the next will appear, each element in the list can be configured as a normal varsel object. Or you can simple give a list of strings, a single string or a list of strings and/or objects. 
+Shows the alphabet, one notification at a time. When one is dismissed then the next will appear, each element in the list can be configured as a normal varsel object. Or you can simple give a list of strings, a single string or a list of strings and/or objects.
 
 You can also give the queue function a different timeout than the normal default setting, this will give every notification in the queue that timeout, it will be overwritten if a timeout is given in the varsel object.
 
