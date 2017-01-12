@@ -101,10 +101,20 @@
     background-color: #57CD7E;
 }
 .varsel-type-success .varsel-icon:before{
-    content: "L";
-    -ms-transform: scaleX(-1) rotate(-35deg); /* IE 9 */
-    -webkit-transform: scaleX(-1) rotate(-35deg); /* Chrome, Safari, Opera */
-    transform: scaleX(-1) rotate(-35deg);
+    content: "";
+    position: relative;
+    left: 12px;
+    top: -2px;
+    width: 5px;
+    height: 12px;
+    border-width: 0 5px 5px 0;
+    border-style: solid;
+    margin-top: -11px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 /* Info */
