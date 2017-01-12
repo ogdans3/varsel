@@ -89,6 +89,9 @@
 
 
 /* All notiication types */
+.varsel-icon{
+    font-family: 'Open Sans',sans-serif;
+}
 
 /* Sucess */
 .varsel-type-success .varsel-icon{
@@ -98,7 +101,10 @@
     background-color: #57CD7E;
 }
 .varsel-type-success .varsel-icon:before{
-    content: "\2713";
+    content: "L";
+    -ms-transform: scaleX(-1) rotate(-35deg); /* IE 9 */
+    -webkit-transform: scaleX(-1) rotate(-35deg); /* Chrome, Safari, Opera */
+    transform: scaleX(-1) rotate(-35deg);
 }
 
 /* Info */
@@ -109,7 +115,7 @@
     background-color: #70B8F4;
 }
 .varsel-type-info .varsel-icon:before{
-    content: "\2139";
+    content: "i";
 }
 
 /* Warning */
@@ -120,7 +126,7 @@
     background-color: #FEC56A;
 }
 .varsel-type-warning .varsel-icon:before{
-    content: "\0021";
+    content: "!";
 }
 
 /* Error */
@@ -131,9 +137,8 @@
     background-color: #F85E59;
 }
 .varsel-type-error .varsel-icon:before{
-    content: "\26A0";
+    content: "x";
 }
-
 
 /* Key frames and animation classes */
 .varsel-destroy-animation{
