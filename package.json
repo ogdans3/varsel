@@ -6,7 +6,7 @@
   "scripts": {
     "setup": "npm install && bower install",
     "test": "echo 'No test specified' && exit 1",
-    "build": "mkdir -p dist && node build.js && echo '' && ls -lh dist/ | awk '{print $5, $9}'"
+    "build": "mkdir -p dist && node build.js && echo '' && tar cvf dist/dist.tar dist/varsel.min.* && ls -lh dist/ | awk '{print $5, $9}'"
   },
   "repository": {
     "type": "git",
