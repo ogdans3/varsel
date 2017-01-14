@@ -4,8 +4,9 @@
   "description": "Javascript notification library",
   "main": "varsel.js",
   "scripts": {
-      "setup": "npm install && bower install",
-      "test": "mocha"
+    "setup": "npm install && bower install",
+    "test": "echo 'No test specified' && exit 1",
+    "build": "node build.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/ogdans3/varsel#readme",
   "devDependencies": {
+    "minifier": "^0.8.0",
     "mocha": "^3.2.0"
   }
 }
