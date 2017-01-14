@@ -7,7 +7,7 @@ var template = "/dist/{{filename}}.min.{{ext}}";
 for(var i = 0; i < files.length; i++){
     var result = minifier.generateOutputName(files[i], {template: template});
     console.log(files[i], "-->", result);
-    minifier.minify(files[i], {output: result});
+    minifier.minify(files[i], {output: result, clean: true});
 }
 
 minifier.on('error', function(err) {
