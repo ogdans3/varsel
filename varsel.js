@@ -42,7 +42,7 @@ varsel.settings = {
 varsel.queue = function(obj){
     var queue;
     var timeout;
-    //This variable can be set in the queue object. If set to false then the notification queue will not begin showing the notifications, this will be up to the user.
+    //This variable can be set in the queue object. If set to false then the notification queue will not begin showing the notifications, thi
     var displayAfterCreation = true;
 
     if(obj === null || obj === undefined){

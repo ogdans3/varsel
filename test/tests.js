@@ -121,3 +121,42 @@ describe("onDismiss", function(){
         expect(v2.settings.onDismiss).to.be.eql(onDismiss);
     });
 });
+
+describe("Queue", function(){
+    it("Init queue", function(){
+        var notifications = ["Not 1", "Not 2"];
+        var q1 = varsel.queue(notifications);
+        expect(q1.length).to.be.eql(2);
+    });
+
+    it("Title", function(){
+        var notifications = [{title: "Title 1"}];
+        var q1 = varsel.queue(notifications);
+        expect(q1[0].settings.title).to.be.eql([notifications[0].title]);
+    });
+
+    it("Text", function(){
+        var notifications = [{text: "Text 1"}, "Text 2"];
+        var q1 = varsel.queue(notifications);
+        expect(q1[0].settings.text).to.be.eql([notifications[0].text]);
+        //When calling the queue with a list it will change the contents of the list instead of making a copy of the list.
+        //It should maybe clone the object instead.
+        expect(q1[1].settings.text).to.be.eql([notifications[1].text]);
+    });
+
+    it("Type", function(){
+        var notifications = [{title: "Title 1", type: "success"}, {title: "Title 1", type: "info"}, {title: "Title 1", type: "warning"}, {title: "Title 1", type: "error"}];
+        var q1 = varsel.queue(notifications);
+        expect(q1[0].settings.type).to.be.eql(notifications[0].type);
+        expect(q1[1].settings.type).to.be.eql(notifications[1].type);
+        expect(q1[2].settings.type).to.be.eql(notifications[2].type);
+        expect(q1[3].settings.type).to.be.eql(notifications[3].type);
+    });
+
+    it("Timeout", function(){
+        var notifications = [{title: "Title 1", timeout: 2}, {title: "Title 1", timeout: -1}];
+        var q1 = varsel.queue(notifications);
+        expect(q1[0].settings.timeout).to.be.eql(notifications[0].timeout);
+        expect(q1[1].settings.timeout).to.be.eql(notifications[1].timeout);
+    });
+});
