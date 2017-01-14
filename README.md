@@ -18,11 +18,11 @@ This library has taken great inspiration from the notifications in the Atom edit
 ###Usage
 Download the dist.tar or varsel.min.js and varsel.min.css from the dist folder or from here:
 
-[dist.tar](https://varsel.freelunch.no/download/dist.tar)
+[dist.tar](http://varsel.freelunch.no/download/dist.tar)
 
-[varsel.min.js](https://varsel.freelunch.no/download/varsel.min.js)
+[varsel.min.js](http://varsel.freelunch.no/download/varsel.min.js)
 
-[varsel.min.css](https://varsel.freelunch.no/download/varsel.min.css)
+[varsel.min.css](http://varsel.freelunch.no/download/varsel.min.css)
 
 `varsel(title, text, type, timeout, onDismiss)`
 
