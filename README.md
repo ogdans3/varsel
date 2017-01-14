@@ -7,10 +7,17 @@ This library has taken great inspiration from the notifications in the Atom edit
 
 [Demo of Varsel](http://varsel.freelunch.no)
 
+###Footprint
+2,2K varsel.min.css
+
+4,0K varsel.min.js
+
 ###Varsel in action
 ![](https://github.com/ogdans3/varsel/blob/master/videos/demo.gif)
 
 ###Usage
+Download the varsel.min.js and varsel.min.css from the dist folder or from [here](https://varsel.freelunch.no/download).
+
 `varsel(title, text, type, timeout, onDismiss)`
 
 This is the normal varsel function. You can choose to give varsel an object instead:
